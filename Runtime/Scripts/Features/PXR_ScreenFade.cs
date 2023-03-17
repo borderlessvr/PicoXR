@@ -4,8 +4,10 @@
 
 ************************************************************************************/
 
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Unity.XR.PXR
 {
@@ -28,10 +30,12 @@ namespace Unity.XR.PXR
             CreateFadeMesh();
             SetCurrentAlpha(0);
         }
+
         void Start()
         {
             StartCoroutine(ScreenFade(1, 0));
         }
+
         void OnDestroy()
         {
             DestoryFadeMesh();
@@ -108,7 +112,24 @@ namespace Unity.XR.PXR
             SetMaterialAlpha();
         }
 
-        IEnumerator ScreenFade(float startAlpha, float endAlpha)
+        public void FadeOut()
+        {
+            FadeOut(null);
+        }
+
+        public void FadeOut(UnityAction onComplete = null)
+        {
+            StopAllCoroutines();
+            StartCoroutine(ScreenFade(1, 0, onComplete));
+        }
+
+        public void FadeIn(UnityAction onComplete = null)
+        {
+            StopAllCoroutines();
+            StartCoroutine(ScreenFade(0, 1, onComplete));
+        }
+
+        IEnumerator ScreenFade(float startAlpha, float endAlpha, UnityAction onComplete = null)
         {
             float elapsedTime = 0.0f;
             while (elapsedTime < fadeTime)
@@ -118,6 +139,8 @@ namespace Unity.XR.PXR
                 SetMaterialAlpha();
                 yield return new WaitForEndOfFrame();
             }
+
+            onComplete?.Invoke();
         }
 
         private void SetMaterialAlpha()
