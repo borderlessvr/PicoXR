@@ -85,7 +85,7 @@ namespace Unity.XR.PXR
 #if UNITY_INPUT_SYSTEM
             return TouchBtnValue || AppBtnValue || TriggerBtnValue;
 #else
-            return Input.GetKey(KeyCode.JoystickButton0) || TouchBtnValue || AppBtnValue || TriggerBtnValue;
+            return Input.GetKey(KeyCode.JoystickButton0) || TouchBtnValue || AppBtnValue || TriggerBtnValue || Input.GetKey(KeyCode.Space);
 #endif
         }
 
