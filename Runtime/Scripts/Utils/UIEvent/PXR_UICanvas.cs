@@ -18,8 +18,8 @@ public class PXR_UICanvas : MonoBehaviour
     protected BoxCollider canvasBoxCollider;
     protected Rigidbody canvasRigidBody;
 
-    protected Coroutine draggablePanelCreation;
-    protected const string CANVAS_DRAGGABLE_PANEL = "UICANVAS_DRAGGABLE_PANEL";
+    //protected Coroutine draggablePanelCreation;
+    //protected const string CANVAS_DRAGGABLE_PANEL = "UICANVAS_DRAGGABLE_PANEL";
 
     protected virtual void OnEnable()
     {
@@ -82,28 +82,28 @@ public class PXR_UICanvas : MonoBehaviour
             canvasRigidBody.isKinematic = true;
         }
 
-        draggablePanelCreation = StartCoroutine(CreateDraggablePanel(canvas, canvasSize));
+        //draggablePanelCreation = StartCoroutine(CreateDraggablePanel(canvas, canvasSize));
     }
 
-    protected virtual IEnumerator CreateDraggablePanel(Canvas canvas, Vector2 canvasSize)
-    {
-        if (canvas && !canvas.transform.Find(CANVAS_DRAGGABLE_PANEL))
-        {
-            yield return null;
+    //protected virtual IEnumerator CreateDraggablePanel(Canvas canvas, Vector2 canvasSize)
+    //{
+    //    if (canvas && !canvas.transform.Find(CANVAS_DRAGGABLE_PANEL))
+    //    {
+    //        yield return null;
 
-            var draggablePanel = new GameObject(CANVAS_DRAGGABLE_PANEL, typeof(RectTransform));
-            draggablePanel.AddComponent<LayoutElement>().ignoreLayout = true;
-            draggablePanel.AddComponent<Image>().color = Color.clear;
-            draggablePanel.AddComponent<EventTrigger>();
-            draggablePanel.transform.SetParent(canvas.transform);
-            draggablePanel.GetComponent<RectTransform>().sizeDelta = canvasSize;
-            draggablePanel.transform.localPosition = Vector3.zero;
-            draggablePanel.transform.localRotation = Quaternion.identity;
-            draggablePanel.transform.localScale = Vector3.one;
-            draggablePanel.transform.SetAsFirstSibling();
+    //        var draggablePanel = new GameObject(CANVAS_DRAGGABLE_PANEL, typeof(RectTransform));
+    //        draggablePanel.AddComponent<LayoutElement>().ignoreLayout = true;
+    //        draggablePanel.AddComponent<Image>().color = Color.clear;
+    //        draggablePanel.AddComponent<EventTrigger>();
+    //        draggablePanel.transform.SetParent(canvas.transform);
+    //        draggablePanel.GetComponent<RectTransform>().sizeDelta = canvasSize;
+    //        draggablePanel.transform.localPosition = Vector3.zero;
+    //        draggablePanel.transform.localRotation = Quaternion.identity;
+    //        draggablePanel.transform.localScale = Vector3.one;
+    //        draggablePanel.transform.SetAsFirstSibling();
 
-        }
-    }
+    //    }
+    //}
 
     protected virtual void RemoveCanvas()
     {
@@ -137,12 +137,12 @@ public class PXR_UICanvas : MonoBehaviour
             Destroy(canvasRigidBody);
         }
 
-        StopCoroutine(draggablePanelCreation);
-        var draggablePanel = canvas.transform.Find(CANVAS_DRAGGABLE_PANEL);
-        if (draggablePanel)
-        {
-            Destroy(draggablePanel.gameObject);
-        }
+        //StopCoroutine(draggablePanelCreation);
+        //var draggablePanel = canvas.transform.Find(CANVAS_DRAGGABLE_PANEL);
+        //if (draggablePanel)
+        //{
+        //    Destroy(draggablePanel.gameObject);
+        //}
 
     }
 }
