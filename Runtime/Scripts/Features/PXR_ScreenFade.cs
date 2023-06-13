@@ -129,6 +129,11 @@ namespace Unity.XR.PXR
             StartCoroutine(ScreenFade(0, 1, onComplete));
         }
 
+        public IEnumerator FadeIn()
+        {
+            yield return ScreenFade(0, 1);
+        }
+
         IEnumerator ScreenFade(float startAlpha, float endAlpha, UnityAction onComplete = null)
         {
             float elapsedTime = 0.0f;
