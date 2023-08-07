@@ -112,26 +112,14 @@ namespace Unity.XR.PXR
             SetMaterialAlpha();
         }
 
-        public void FadeOut()
-        {
-            FadeOut(null);
-        }
-
-        public void FadeOut(UnityAction onComplete = null)
-        {
-            StopAllCoroutines();
-            StartCoroutine(ScreenFade(1, 0, onComplete));
-        }
-
-        public void FadeIn(UnityAction onComplete = null)
-        {
-            StopAllCoroutines();
-            StartCoroutine(ScreenFade(0, 1, onComplete));
-        }
-
         public IEnumerator FadeIn()
         {
             yield return ScreenFade(0, 1);
+        }
+
+        public IEnumerator FadeOut()
+        {
+            yield return ScreenFade(1, 0);
         }
 
         IEnumerator ScreenFade(float startAlpha, float endAlpha, UnityAction onComplete = null)
@@ -159,6 +147,7 @@ namespace Unity.XR.PXR
                 fadeMaterial.renderQueue = renderQueue;
                 fadeMeshRenderer.material = fadeMaterial;
                 fadeMeshRenderer.enabled = isFading;
+                fadeMeshRenderer.sortingOrder = 4;
             }
         }
     }
